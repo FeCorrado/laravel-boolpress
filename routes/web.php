@@ -15,12 +15,12 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/admin', 'Admin\HomeController@index')->name('admin.home');
-Route::get('/admin', 'Admin\HomeController@index')->name('admin.home');
+Route::get('/posts', 'Admin\PostController@index')->name('post.index');
 
-
+Route::resource("posts", "PostController");
 
 
 

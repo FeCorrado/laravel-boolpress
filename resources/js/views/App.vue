@@ -1,8 +1,7 @@
-vue:
-<template></template>
+<template><div>Ciao</div></template>
 
 <script>
-export default {};
+export default {name="App"};
 </script>
 
 <style></style>

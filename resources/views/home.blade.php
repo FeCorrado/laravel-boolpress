@@ -19,7 +19,8 @@
 </head>
 <body>
     <div>
-        @extends('layouts.nav')
+         @extends('layouts.nav')
+         <div id="appVue"></div>
     </div>
 
 
