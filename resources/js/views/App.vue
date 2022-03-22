@@ -1,7 +1,20 @@
-<template><div>Ciao</div></template>
+<template>
+    <div>
+        <TheNavbar></TheNavbar>
+
+        <TheFooter></TheFooter>
+    </div>
+</template>
 
 <script>
-export default {name="App"};
-</script>
+import TheNavbar from "../components/TheNavbar.vue";
+import TheFooter from "../components/TheFooter.vue";
 
+export default {
+    components: { TheNavbar, TheFooter },
+    mounted() {
+        console.log("Component mounted.");
+    },
+};
+</script>
 <style></style>

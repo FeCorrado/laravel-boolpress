@@ -1,5 +1,7 @@
+
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,14 +17,23 @@ use Illuminate\Support\Facades\Route;
 
 
 
-//Auth::routes();
+Auth::routes();
+
 
 Route::get('/admin', 'Admin\HomeController@index')->name('admin.home');
-Route::get('/posts', 'Admin\PostController@index')->name('post.index');
+//Route::get('/posts', 'Admin\PostController@index')->name('post.index');
 
-Route::resource("posts", "PostController");
+// Route::get('/post', 'Admin\PostController@index')->name('admin.posts.index');
+// Route::get('/create', 'Admin\PostController@create')->name('admin.post.create');
+// Route::post('/store', 'Admin\PostController@store')->name('admin.post.store');
+// Route::get('/show', 'Admin\PostController@show')->name('admin.post.show');
 
+//Route::resource("posts", "Admin\PostController")
 
+Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::resource('/posts', 'PostController');
+});
 
 
 

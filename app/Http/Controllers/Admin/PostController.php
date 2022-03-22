@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -15,8 +16,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $postList = Post::all();
-        return view("admin.post.index", compact("posts"));
+        $posts = Post::all();
+        return view("admin.posts.index", compact("posts"));
     }
 
     /**
@@ -26,7 +27,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view("admin.posts.create");
     }
 
     /**
@@ -37,7 +38,33 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            "title" => "required|min:5",
+            "content" => "required|min:20"
+        ]);
+
+        $post = new Post();
+        $post->fill($data);
+
+        $slug = Str::slug($post->title);
+        $exist = Post::where("slug", $slug)->first();
+        $counter = 1;
+
+        while ($exist) {
+            $newSlug = $slug . "-" . $counter;
+            $counter++;
+            $exist = Post::where("slug", $newSlug)->first();
+
+            if (!$exist) {
+                $slug = $newSlug;
+            }
+        }
+
+        $post->slug = $slug;
+        $post->save();
+
+        //$post->tags()->attach($data["tags"]);
+        return redirect()->route("admin.posts.index");
     }
 
     /**
@@ -46,9 +73,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $post = Post::where("slug", $slug)->first();
+
+        return view("admin.posts.show", compact("post"));
     }
 
     /**
