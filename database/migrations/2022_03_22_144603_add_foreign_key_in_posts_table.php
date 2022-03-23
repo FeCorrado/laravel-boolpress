@@ -18,7 +18,7 @@ class AddForeignKeyInPostsTable extends Migration
 
             $table->foreign("user_id")
                 ->references("id")
-                ->default("4")
+                ->default(4)
                 ->on("users");
 
 

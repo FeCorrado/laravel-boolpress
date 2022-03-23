@@ -11,9 +11,23 @@
           </div>
 
           <div class="card-body">
-
+            <p class="lead">
             {{ $post->content }}
+          </p>
 
+          <div class="mt-3">
+            Data creazione: {{ $post->created_at }}
+            <br>
+            Data ultima modifica: {{ $post->updated_at }}
+            <br>
+            slug: {{ $post->slug  }}
+          </div>
+
+          <div>
+            Utente: {{ $post->user->name }}
+            <br>
+            Email: {{ $post->user->email }}
+          </div>
           </div>
         </div>
       </div>

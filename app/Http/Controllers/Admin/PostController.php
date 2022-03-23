@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -40,11 +41,12 @@ class PostController extends Controller
     {
         $data = $request->validate([
             "title" => "required|min:5",
-            "content" => "required|min:20"
+            "content" => "required|min:20",
         ]);
 
         $post = new Post();
         $post->fill($data);
+        $post->user_id = Auth::user()->id;
 
         $slug = Str::slug($post->title);
         $exist = Post::where("slug", $slug)->first();
